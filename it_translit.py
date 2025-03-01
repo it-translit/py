@@ -67,12 +67,26 @@ for fr, to in mapping.items():
 mappings_reverse = get_mappings(mappings_reverse_items)
 
 def _trans(source, mappings):
+    source_lower = source.lower()
     res = ''
     i = 0
     while i < len(source):
         for n in range(len(mappings), 0, -1):
-            to = mappings[n-1].get(source[i:i+n])
+            sl = source_lower[i:i+n]
+            to = mappings[n-1].get(sl)
             if to is not None:
+                #if not source[i:i+n].islower() and source[i:i+n].isalpha():
+                if source[i:i+n] != sl:
+                    if len(to) == 1:
+                        to = to.upper()
+                    else:
+                        if n == 1:
+                            if source[i+1:i+2].isupper() or (i > 0 and source[i-1].isupper()):
+                                to = to.upper()
+                            else:
+                                to = to.capitalize()
+                        else:
+                            to = to.capitalize()
                 res += to
                 i += n
                 break

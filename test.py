@@ -1,16 +1,34 @@
-import it_translit, itertools
+import it_translit, sys, itertools
 
-def t(s):
-    print(s, '->', it_translit.trans(s), '->', it_translit.reverse(it_translit.trans(s)))
-t('яндекс')
-t('хабр')
+ok = True
+def t(s, d, use_q = False):
+    global ok
+    if it_translit.trans(s, use_q = use_q) != d:
+        sys.stderr.write(f"{s} -> {it_translit.trans(s, use_q = use_q)}\n")
+        ok = False
+        return
+    if it_translit.reverse(d) != s:
+        sys.stderr.write(f"{s} -> {d} -> {it_translit.reverse(d)}\n")
+        ok = False
 
-t_ = it_translit.trans('только')
-tq = it_translit.trans('только', use_q = True)
-print(t_, '->', it_translit.reverse(t_))
-print(tq, '->', it_translit.reverse(tq))
+t('яндекс', 'yandex')
+t('Яндекс', 'Yandex')
+t('ЯНДЕКС', 'YANDEX')
+t('МЯ', 'MYA')
+t('Мя', 'Mya')
+t('мя', 'mya')
+t('хабр', 'habr')
+
+t('только', "tol'ko")
+t('только', 'tolqko', use_q = True)
 
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):
-            print(''.join(tup), '->', it_translit.trans(''.join(tup)), '->', it_translit.reverse(it_translit.trans(''.join(tup))))
+            sys.stderr.write(f"{''.join(tup)} -> {it_translit.trans(''.join(tup))} -> {it_translit.reverse(it_translit.trans(''.join(tup)))}\n")
+            ok = False
+
+if ok:
+    print('ok')
+else:
+    sys.exit('!ok')
