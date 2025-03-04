@@ -86,7 +86,7 @@ def _trans(source, mappings):
                             else:
                                 to = to.capitalize()
                         else:
-                            to = to.capitalize()
+                            to = to.upper()
                 elif source[i] == "'":
                     if i > 0 and source[i-1].isupper():
                         to = to.upper()

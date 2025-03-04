@@ -25,6 +25,8 @@ t('Только', "Tol'ko")
 t('Только', 'Tolqko', use_q = True)
 t('ТОЛЬКО', "TOL'KO")
 t('ТОЛЬКО', 'TOLQKO', use_q = True)
+t('тольько', "tol'wko")
+t('ТОЛЬЬКО', "TOL'WKO")
 
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
