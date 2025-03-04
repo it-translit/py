@@ -28,6 +28,19 @@ t('ТОЛЬКО', 'TOLQKO', use_q = True)
 t('тольько', "tol'wko")
 t('ТОЛЬЬКО', "TOL'WKO")
 
+t('ксерокс', 'xerox')
+t('Ксерокс', 'Xerox')
+t('КСЕРОКС', 'XEROX')
+t('кСЕРОКС', 'kSEROX')
+t('ксЕРОКС', 'xEROX')
+t('КСерокс', 'KSerox')
+t('кСерокс', 'kSerox')
+t('ксероКс', 'xeroKs')
+t('ксерокС', 'xerokS')
+t('ксероКС', 'xeroKS')
+t('КС', 'KS')
+t('Кс', 'Ks')
+
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):

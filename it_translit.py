@@ -66,7 +66,8 @@ for fr, to in mapping.items():
         mappings_reverse_items.append((to.replace("'", 'q'), fr))
 mappings_reverse = get_mappings(mappings_reverse_items)
 
-def _trans(source, mappings):
+def trans(source, use_q = False):
+    mappings = mappings_with_q if use_q else mappings_wo_q
     source_lower = source.lower()
     res = ''
     i = 0
@@ -76,6 +77,44 @@ def _trans(source, mappings):
             to = mappings[n-1].get(sl)
             if to is not None:
                 #if not source[i:i+n].islower() and source[i:i+n].isalpha():
+                if source[i:i+n] != sl:
+                    if len(to) == 1:
+                        if sl == 'кс':
+                            if source[i:i+n] == 'кС':
+                                to = 'kS'
+                            elif source[i:i+n] == 'КС' and not (source[i+2:i+3].isupper() or (i > 0 and source[i-1].isupper())):
+                                to = 'KS'
+                            elif source[i:i+n] == 'Кс' and not source[i+2:i+3].islower():
+                                to = 'Ks'
+                            else:
+                                to = to.upper()
+                        else:
+                            to = to.upper()
+                    else:
+                        if n == 1:
+                            if source[i+1:i+2].isupper() or (i > 0 and source[i-1].isupper()):
+                                to = to.upper()
+                            else:
+                                to = to.capitalize()
+                        else:
+                            to = to.upper()
+                res += to
+                i += n
+                break
+        else:
+            res += source[i]
+            i += 1
+    return res
+
+def reverse(source):
+    source_lower = source.lower()
+    res = ''
+    i = 0
+    while i < len(source):
+        for n in range(len(mappings_reverse), 0, -1):
+            sl = source_lower[i:i+n]
+            to = mappings_reverse[n-1].get(sl)
+            if to is not None:
                 if source[i:i+n] != sl:
                     if len(to) == 1:
                         to = to.upper()
@@ -97,9 +136,3 @@ def _trans(source, mappings):
             res += source[i]
             i += 1
     return res
-
-def trans(source, use_q = False):
-    return _trans(source, mappings_with_q if use_q else mappings_wo_q)
-
-def reverse(source):
-    return _trans(source, mappings_reverse)
