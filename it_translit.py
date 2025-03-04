@@ -97,7 +97,10 @@ def trans(source, use_q = False):
                             else:
                                 to = to.capitalize()
                         else:
-                            to = to.upper()
+                            if source[i:i+n].isupper():
+                                to = to.upper()
+                            else:
+                                to = (to[0].upper() if source[i].isupper() else to[0]) + (to[1:].upper() if source[i+1:i+n].isupper() else to[1:])
                 res += to
                 i += n
                 break
@@ -125,7 +128,10 @@ def reverse(source):
                             else:
                                 to = to.capitalize()
                         else:
-                            to = to.upper()
+                            if source[i:i+n].isupper():
+                                to = to.upper()
+                            else:
+                                to = (to[0].upper() if source[i].isupper() else to[0]) + (to[1:].upper() if source[i+1:i+n].isupper() else to[1:])
                 elif source[i] == "'":
                     if i > 0 and source[i-1].isupper():
                         to = to.upper()

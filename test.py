@@ -41,6 +41,11 @@ t('ксероКС', 'xeroKS')
 t('КС', 'KS')
 t('Кс', 'Ks')
 
+t('схема', 'skhema')
+t('Схема', 'Skhema')
+t('СХЕМА', 'SKHEMA')
+t('сХЕМА', 'sKHEMA')
+
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):
