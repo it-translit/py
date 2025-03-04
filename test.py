@@ -46,6 +46,16 @@ t('Схема', 'Skhema')
 t('СХЕМА', 'SKHEMA')
 t('сХЕМА', 'sKHEMA')
 
+t('Ь', 'Q')
+t('ЬМ', "QM")
+t('МЬ', "M'")
+t('ЬЬ', 'QW')
+t('ьЬ', 'qW')
+t('Ьь', 'Qw')
+t('Ъ', 'Qq')
+t('ЪМ', "QQM")
+t('МЪ', "M''")
+
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):

@@ -78,6 +78,11 @@ def trans(source, use_q = False):
             if to is not None:
                 #if not source[i:i+n].islower() and source[i:i+n].isalpha():
                 if source[i:i+n] != sl:
+                    if not use_q and to[0] == "'":
+                        if source[i:i+n].isupper() and (i > 0 and source[i-1].isupper()):
+                            pass
+                        else:
+                            to = to.replace("'", 'q')
                     if len(to) == 1:
                         if sl == 'кс':
                             if source[i:i+n] == 'кС':
