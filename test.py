@@ -46,6 +46,12 @@ t('Схема', 'Skhema')
 t('СХЕМА', 'SKHEMA')
 t('сХЕМА', 'sKHEMA')
 
+t('Скхема', 'Skhwema')
+t('СКХЕМА', 'SKHWEMA')
+t('сКХЕМА', 'sKHWEMA')
+t('скХЕМА', 'skHWEMA')
+t('скхЕМА', 'skhwEMA')
+
 t('Ь', 'Q')
 t('ЬМ', "QM")
 t('МЬ', "M'")
