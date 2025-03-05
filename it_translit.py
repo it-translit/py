@@ -76,20 +76,23 @@ def trans(source, use_q = False):
             sl = source_lower[i:i+n]
             to = mappings[n-1].get(sl)
             if to is not None:
+                if not use_q and to.startswith(("'", "e'")):
+                    if (source[i:i+n].islower() and (i > 0 and source[i-1].islower())) or \
+                       (source[i:i+n].isupper() and (i > 0 and source[i-1].isupper())):
+                        pass
+                    else:
+                        to = to.replace("'", 'q')
+                if sl == 'кс' and source_lower[i+n:i+n+1] in ('х', 'к'):
+                    continue
                 #if not source[i:i+n].islower() and source[i:i+n].isalpha():
                 if source[i:i+n] != sl:
-                    if not use_q and to[0] == "'":
-                        if source[i:i+n].isupper() and (i > 0 and source[i-1].isupper()):
-                            pass
-                        else:
-                            to = to.replace("'", 'q')
                     if len(to) == 1:
                         if sl == 'кс':
                             if source[i:i+n] == 'кС':
                                 to = 'kS'
                             elif source[i:i+n] == 'КС' and not (source[i+2:i+3].isupper() or (i > 0 and source[i-1].isupper())):
                                 to = 'KS'
-                            elif source[i:i+n] == 'Кс' and not source[i+2:i+3].islower():
+                            elif source[i:i+n] == 'Кс' and (not source[i+2:i+3].islower() or source[i+2:i+3] in 'ъь' or (i > 0 and source[i-1].isalpha())):
                                 to = 'Ks'
                             else:
                                 to = to.upper()
@@ -129,7 +132,7 @@ def reverse(source):
                         to = to.upper()
                     else:
                         if n == 1:
-                            if source[i+1:i+2].isupper() or (i > 0 and source[i-1].isupper()):
+                            if source[i+1:i+2].isupper() or source[i+1:i+2] == "'" or (i > 0 and (source[i-1].isupper() or source[i-1] == "'")):
                                 to = to.upper()
                             else:
                                 to = to.capitalize()
@@ -139,7 +142,8 @@ def reverse(source):
                             else:
                                 to = ''.join(to[j].upper() if source[i+j].isupper() else to[j] for j in range(len(to)))
                 elif source[i] == "'":
-                    if i > 0 and source[i-1].isupper():
+                    #if i > 0 and source[i-1].isupper():
+                    if len(res) > 0 and res[-1].isupper():
                         to = to.upper()
                 res += to
                 i += n

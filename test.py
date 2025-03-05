@@ -65,8 +65,17 @@ t('МЪ', "M''")
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):
-            sys.stderr.write(f"{''.join(tup)} -> {it_translit.trans(''.join(tup))} -> {it_translit.reverse(it_translit.trans(''.join(tup)))}\n")
-            ok = False
+            t(''.join(tup), it_translit.trans(''.join(tup)))
+
+test_chars = 'азксежхцчшщъыьэя'
+for rep in range(1, 5):
+    for tup in itertools.product(test_chars + test_chars.upper() + ' ', repeat = rep):
+        tr = it_translit.trans(''.join(tup))
+        if it_translit.reverse(tr) != ''.join(tup):
+            t(''.join(tup), tr)
+        if "'" in tr:
+            if it_translit.reverse(it_translit.trans(''.join(tup), use_q = True)) != ''.join(tup):
+                t(''.join(tup), it_translit.trans(''.join(tup), use_q = True), use_q = True)
 
 if ok:
     print('ok')
