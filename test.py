@@ -62,6 +62,12 @@ t('Ъ', 'Qq')
 t('ЪМ', "QQM")
 t('МЪ', "M''")
 
+t('Сканер QR-кода', r'Skaner \QR\-koda')
+t('Яхта\yacht', r'Yahta\\\yacht' + '\\')
+t("Git", '\\Git\\')
+t("Git'а", r"\Git'\a")
+t("Д'Артаньян", r"D\'\Artan'yan")
+
 for rep in range(1, 5):
     for tup in itertools.product([chr(ord('а') + i) for i in range(32)] + ['ё'], repeat = rep):
         if it_translit.reverse(it_translit.trans(''.join(tup))) != ''.join(tup):

@@ -72,6 +72,25 @@ def trans(source, use_q = False):
     res = ''
     i = 0
     while i < len(source):
+        if source[i] == '\\':
+            res += '\\\\'
+            i += 1
+            continue
+        elif ord(source_lower[i]) in range(ord('a'), ord('z') + 1) or source_lower[i] == "'":
+            res += '\\'
+            start = i
+            i += 1
+            while i < len(source):
+                if ord(source_lower[i]) in range(ord('а'), ord('я') + 1) or source_lower[i] == "ё":
+                    i -= 1
+                    while not (ord(source_lower[i]) in range(ord('a'), ord('z') + 1) or source_lower[i] == "'"):
+                        i -= 1
+                    i += 1
+                    break
+                i += 1
+            res += source[start:i] + '\\'
+            continue
+
         for n in range(len(mappings), 0, -1):
             sl = source_lower[i:i+n]
             to = mappings[n-1].get(sl)
@@ -123,6 +142,22 @@ def reverse(source):
     res = ''
     i = 0
     while i < len(source):
+        if source[i] == '\\':
+            i += 1
+            if source[i] == '\\':
+                res += '\\'
+                i += 1
+                continue
+            start = i
+            i += 1
+            while i < len(source):
+                if source[i] == '\\':
+                    res += source[start:i]
+                    i += 1
+                    break
+                i += 1
+            continue
+
         for n in range(len(mappings_reverse), 0, -1):
             sl = source_lower[i:i+n]
             to = mappings_reverse[n-1].get(sl)
