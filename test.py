@@ -64,6 +64,7 @@ t('МЪ', "M''")
 
 t('Сканер QR-кода', r'Skaner \QR\-koda')
 t('Яхта\yacht', r'Yahta\\\yacht' + '\\')
+t(r'C\D', '\\C\\\\D\\')
 t("Git", '\\Git\\')
 t("Git'а", r"\Git'\a")
 t("Д'Артаньян", r"D\'\Artan'yan")

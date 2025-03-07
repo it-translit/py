@@ -88,7 +88,7 @@ def trans(source, use_q = False):
                     i += 1
                     break
                 i += 1
-            res += source[start:i] + '\\'
+            res += source[start:i].replace('\\', '\\\\') + '\\'
             continue
 
         for n in range(len(mappings), 0, -1):
@@ -152,6 +152,11 @@ def reverse(source):
             i += 1
             while i < len(source):
                 if source[i] == '\\':
+                    if i+1 < len(source) and source[i+1] == '\\':
+                        res += source[start:i]
+                        start = i+1
+                        i += 2
+                        continue
                     res += source[start:i]
                     i += 1
                     break
