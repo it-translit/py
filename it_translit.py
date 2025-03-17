@@ -96,8 +96,8 @@ def trans(source, use_q = False):
             to = mappings[n-1].get(sl)
             if to is not None:
                 if not use_q and to.startswith(("'", "e'")):
-                    if (source[i:i+n].islower() and (i == 0 or source[i-1].islower())) or \
-                       (source[i:i+n].isupper() and (i > 0 and source[i-1].isupper())):
+                    if (source[i:i+n].islower() and (i == 0 or not source[i-1].isupper())) or \
+                       (source[i:i+n].isupper() and (i > 0 and     source[i-1].isupper())):
                         pass
                     else:
                         to = to.replace("'", 'q')
