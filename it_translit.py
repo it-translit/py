@@ -95,7 +95,7 @@ def trans(source, use_q = False):
             sl = source_lower[i:i+n]
             to = mappings[n-1].get(sl)
             if to is not None:
-                if not use_q and to.startswith(("'", "e'")):
+                if not use_q and to.startswith(("'", "e'w")):
                     if (source[i:i+n].islower() and (i == 0 or not source[i-1].isupper())) or \
                        (source[i:i+n].isupper() and (i > 0 and     source[i-1].isupper())):
                         pass

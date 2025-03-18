@@ -66,6 +66,7 @@ t('ь', "'")
 t('ъ', "''")
 t('э', "e'")
 t('я это знаю', "ya e'to znayu")
+t('Это', "E'to")
 
 t('Сканер QR-кода', r'Skaner \QR\-koda')
 t('Яхта\yacht', r'Yahta\\\yacht' + '\\')
