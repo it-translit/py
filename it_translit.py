@@ -40,9 +40,11 @@ mapping = {
     'ыа': 'yaw',
     'ыу': 'yuw',
     'ыо': 'yow',
-    'еь': "e'w",
-    'ьь': "'w",
-    'ьъ': "'ww",
+    'еь': 'eqw',
+    'ьь': 'qw',
+    'ьъ': 'qww',
+    'ъь': 'qqw',
+    'ъъ': 'qqqw',
     'еъ': 'eww',
     'зх': 'zkh',
     'зкх':'zkhw',
@@ -95,9 +97,10 @@ def trans(source, use_q = False):
             sl = source_lower[i:i+n]
             to = mappings[n-1].get(sl)
             if to is not None:
-                if not use_q and to.startswith(("'", "e'w")):
-                    if (source[i:i+n].islower() and (i == 0 or not source[i-1].isupper())) or \
-                       (source[i:i+n].isupper() and (i > 0 and     source[i-1].isupper())):
+                if not use_q and to.startswith("'"):
+                    if source[i:i+n].islower() == source[i+n].islower() if source[i+n:i+n+1].isalpha() else \
+                      (source[i:i+n].islower() and (i == 0 or source[i-1].islower())) or \
+                      (source[i:i+n].isupper() and (i > 0 and source[i-1].isupper())):
                         pass
                     else:
                         to = to.replace("'", 'q')
@@ -183,7 +186,7 @@ def reverse(source):
                                 to = ''.join(to[j].upper() if source[i+j].isupper() else to[j] for j in range(len(to)))
                 elif source[i] == "'":
                     #if i > 0 and source[i-1].isupper():
-                    if len(res) > 0 and res[-1].isupper():
+                    if source[i+n].isupper() if source[i+n:i+n+1].isalpha() else len(res) > 0 and res[-1].isupper():
                         to = to.upper()
                 res += to
                 i += n
