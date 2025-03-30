@@ -78,14 +78,14 @@ def trans(source, use_q = False):
             res += '\\\\'
             i += 1
             continue
-        elif ord(source_lower[i]) in range(ord('a'), ord('z') + 1) or source_lower[i] == "'":
+        elif 'a' <= source_lower[i] <= 'z' or source_lower[i] == "'":
             res += '\\'
             start = i
             i += 1
             while i < len(source):
-                if ord(source_lower[i]) in range(ord('а'), ord('я') + 1) or source_lower[i] == "ё":
+                if 'а' <= source_lower[i] <= 'я' or source_lower[i] == "ё":
                     i -= 1
-                    while not (ord(source_lower[i]) in range(ord('a'), ord('z') + 1) or source_lower[i] == "'"):
+                    while not ('a' <= source_lower[i] <= 'z' or source_lower[i] == "'"):
                         i -= 1
                     i += 1
                     break
