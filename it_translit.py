@@ -68,7 +68,7 @@ for fr, to in mapping.items():
         mappings_reverse_items.append((to.replace("'", 'q'), fr))
 mappings_reverse = get_mappings(mappings_reverse_items)
 
-def trans(source, use_q = False):
+def trans(source, *, use_q = False):
     mappings = mappings_with_q if use_q else mappings_wo_q
     source_lower = source.lower()
     res = ''
